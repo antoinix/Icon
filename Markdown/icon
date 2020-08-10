@@ -1,0 +1,27 @@
+#! /bin/bash
+source $PWD/emoji
+
+total_emoji_num=${#emoji_array[*]}
+total_code_num=${#code_array[*]}
+if [[ $total_code_num = $total_emoji_num ]]; then
+    exist=0
+    for counter in $(seq 1 $total_emoji_num); do
+        if [[ "$1" == ${emoji_array[$counter]} ]]; then
+            echo ${code_array[$counter]}
+            exist=1
+            break
+        fi
+
+        if [[ ":$1:" == ${code_array[$counter]} ]]; then
+            echo ${emoji_array[$counter]}
+            exist=1
+            break
+        fi
+    done
+
+    if [[ $exist != 1 ]]; then
+        echo No matching result
+    fi
+else
+    echo The lengths of the two arrays are not equal
+fi
